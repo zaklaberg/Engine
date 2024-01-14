@@ -38,7 +38,7 @@ int Main::Run() {
     HACCEL hAccelTable = LoadAccelerators(appInstance, MAKEINTRESOURCE(IDC_MAIN));
     MSG msg = { 0 };
 
-    // mTimer.Reset();
+    timer.Reset();
 
     while (msg.message != WM_QUIT)
     {
@@ -53,16 +53,16 @@ int Main::Run() {
         {
             //mTimer.Tick();
 
-            /* if (!mAppPaused)
+            if (!isAppPaused)
             {
-                CalculateFrameStats();
-                Update(mTimer);
-                Draw(mTimer);
+                // CalculateFrameStats();
+                // Update(timer);
+                // Draw(timer);
             }
             else
             {
                 Sleep(100);
-            } */
+            }
         }
     }
 
@@ -107,54 +107,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return main.Run();
 }
 
-
-LRESULT CALLBACK Main::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void Main::OnResize()
 {
-    Main* pThis;
-
-    if (message == WM_NCCREATE)
-    {
-        pThis = static_cast<Main*>(reinterpret_cast<CREATESTRUCT*>(lParam)->lpCreateParams);
-
-        SetLastError(0);
-        if (!SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pThis)))
-        {
-            if (GetLastError() != 0)
-                return FALSE;
-        }
-    }
-    else
-    {
-        pThis = reinterpret_cast<Main*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-    }
-
-    if (!pThis)
-    {
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-
     
-    switch (message)
-    {
-        case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Parse the menu selections:
-            switch (wmId)
-            {
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
-        default:
-            return DefWindowProc(hWnd, message, wParam, lParam);
-        }
-    return 0;
 }
+
+
+

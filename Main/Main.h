@@ -14,6 +14,7 @@ public:
 
 	bool InitMainWindow();
 	int Run();
+	void OnResize();
 	static LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 protected:
 	ATOM RegisterWndClass();
@@ -30,5 +31,9 @@ protected:
 	bool isResizing = false;
 	bool isFullScreen = false;
 	bool isAppPaused = false;
+
+	int clientWidth = 0;
+	int clientHeight = 0;
+
 	Timer timer;
 };
