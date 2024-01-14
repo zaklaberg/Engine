@@ -2,6 +2,7 @@
 
 #include "resource.h"
 #include <string>
+#include "Timer.h"
 
 class Main 
 {
@@ -18,17 +19,16 @@ protected:
 	ATOM RegisterWndClass();
 	BOOL InitWndInstance();
 
-
-
 protected:
-	HINSTANCE mAppInstance = nullptr;
-	HWND mMainWnd = nullptr;
-	bool mIsMaximized = false;
-	bool mIsMinimized = false;
-	bool mIsResizing = false;
-	bool mIsFullScreen = false;
-	bool mIsAppPaused = false;
-	std::wstring mWndClassName;
-	std::wstring mAppTitle;
-	// Timer mTimer;
+	HINSTANCE appInstance = nullptr;
+	HWND mainWnd = nullptr;
+	std::wstring wndClassName;
+	std::wstring appTitle;
+
+	bool isMaximized = false;
+	bool isMinimized = false;
+	bool isResizing = false;
+	bool isFullScreen = false;
+	bool isAppPaused = false;
+	Timer timer;
 };

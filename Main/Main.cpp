@@ -5,9 +5,9 @@
 #include "Main.h"
 
 Main::Main(HINSTANCE hInstance, std::wstring appTitle, std::wstring wndClassName) :
-    mAppInstance(hInstance),
-    mAppTitle(appTitle),
-    mWndClassName(wndClassName)
+    appInstance(hInstance),
+    appTitle(appTitle),
+    wndClassName(wndClassName)
 {
 
 }
@@ -20,8 +20,8 @@ bool Main::InitMainWindow() {
 }
 
 BOOL Main::InitWndInstance() {
-    HWND hWnd = CreateWindowW(mWndClassName.c_str(), mAppTitle.c_str(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, mAppInstance, this);
+    HWND hWnd = CreateWindowW(wndClassName.c_str(), appTitle.c_str(), WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, appInstance, this);
 
     if (!hWnd)
     {
@@ -35,7 +35,7 @@ BOOL Main::InitWndInstance() {
 }
 
 int Main::Run() {
-    HACCEL hAccelTable = LoadAccelerators(mAppInstance, MAKEINTRESOURCE(IDC_MAIN));
+    HACCEL hAccelTable = LoadAccelerators(appInstance, MAKEINTRESOURCE(IDC_MAIN));
     MSG msg = { 0 };
 
     // mTimer.Reset();
@@ -78,12 +78,12 @@ ATOM Main::RegisterWndClass() {
     wcex.lpfnWndProc = WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
-    wcex.hInstance = mAppInstance;
-    wcex.hIcon = LoadIcon(mAppInstance, MAKEINTRESOURCE(IDI_MAIN));
+    wcex.hInstance = appInstance;
+    wcex.hIcon = LoadIcon(appInstance, MAKEINTRESOURCE(IDI_MAIN));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = mWndClassName.c_str();
+    wcex.lpszClassName = wndClassName.c_str();
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
