@@ -21,7 +21,7 @@ bool Main::InitMainWindow() {
 
 BOOL Main::InitWndInstance() {
     HWND hWnd = CreateWindowW(mWndClassName.c_str(), mAppTitle.c_str(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, mAppInstance, nullptr);
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, mAppInstance, this);
 
     if (!hWnd)
     {
