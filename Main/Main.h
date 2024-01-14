@@ -3,8 +3,6 @@
 #include "resource.h"
 #include <string>
 
-#define MAX_LOADSTRING 100
-
 class Main 
 {
 public:

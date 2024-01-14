@@ -4,8 +4,6 @@
 #include "framework.h"
 #include "Main.h"
 
-
-
 Main::Main(HINSTANCE hInstance, std::wstring appTitle, std::wstring wndClassName) :
     mAppInstance(hInstance),
     mAppTitle(appTitle),
