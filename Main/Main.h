@@ -3,6 +3,8 @@
 #include "resource.h"
 #include <string>
 #include "Timer.h"
+#include <memory>
+#include "D3Base.h"
 
 class Main 
 {
@@ -12,11 +14,11 @@ public:
 	void operator=(Main const&) = delete;
 	virtual ~Main();
 
-	bool InitMainWindow();
 	int Run();
 	void OnResize();
 	static LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 protected:
+	bool InitMainWindow();
 	ATOM RegisterWndClass();
 	BOOL InitWndInstance();
 
@@ -32,8 +34,9 @@ protected:
 	bool isFullScreen = false;
 	bool isAppPaused = false;
 
-	int clientWidth = 0;
-	int clientHeight = 0;
+	int clientWidth = 800;
+	int clientHeight = 600;
 
 	Timer timer;
+	std::unique_ptr<D3Base> renderer;
 };

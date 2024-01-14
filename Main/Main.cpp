@@ -9,25 +9,31 @@ Main::Main(HINSTANCE hInstance, std::wstring appTitle, std::wstring wndClassName
     appTitle(appTitle),
     wndClassName(wndClassName)
 {
-
+    this->InitMainWindow();
+    this->renderer = std::make_unique<D3Base>(mainWnd, clientWidth, clientHeight);
 }
-Main::~Main() {
-
-}
+Main::~Main() {}
 bool Main::InitMainWindow() {
     this->RegisterWndClass();
     return this->InitWndInstance();
 }
 
 BOOL Main::InitWndInstance() {
+    // Compute window rectangle dimensions based on requested client area dimensions.
+    RECT R = { 0L, 0L, (LONG)clientWidth, (LONG)clientHeight };
+
+    AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
+    int width = R.right - R.left;
+    int height = R.bottom - R.top;
+
     HWND hWnd = CreateWindowW(wndClassName.c_str(), appTitle.c_str(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, appInstance, this);
+        CW_USEDEFAULT, 0, width, height, nullptr, nullptr, appInstance, this);
 
     if (!hWnd)
     {
         return FALSE;
     }
-
+    mainWnd = hWnd;
     ShowWindow(hWnd, SW_SHOW);
     UpdateWindow(hWnd);
 
@@ -98,10 +104,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     Main main(hInstance, L"Main", L"Main");
-    main.InitMainWindow();
-    // Init renderer
-    // Init physics 
-    
 
     // Run loop
     return main.Run();

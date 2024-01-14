@@ -104,10 +104,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>F:\Engine\Renderer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Program Files (x86)\windows kits\10\Lib\10.0.22000.0\um\x64\d3d12.lib;C:\Program Files (x86)\windows kits\10\Lib\10.0.22000.0\um\x64\dxguid.lib;C:\Program Files (x86)\windows kits\10\Lib\10.0.22000.0\um\x64\dxgi.lib;C:\Program Files (x86)\windows kits\10\Lib\10.0.22000.0\um\x64\d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,6 +146,11 @@
   <ItemGroup>
     <Image Include="Main.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Renderer\Renderer.vcxproj">
+      <Project>{ca87728e-a44c-45f6-abb2-210f74fed06d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
