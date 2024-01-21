@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Main.h"
+#include <Utilities.h>
 
 Main::Main(HINSTANCE hInstance, std::wstring appTitle, std::wstring wndClassName) :
     mAppInstance(hInstance),
@@ -57,7 +58,7 @@ int Main::Run() {
         // Otherwise, do engine stuff.
         else
         {
-            //mTimer.Tick();
+            mTimer.Tick();
 
             if (!mIsAppPaused)
             {
@@ -106,7 +107,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Main main(hInstance, L"Main", L"Main");
 
     // Run loop
-    return main.Run();
+    try {
+        return main.Run();
+    }
+    catch(DxException& e) {
+        MessageBox(nullptr, e.ToString().c_str(), L"HR Failed", MB_OK);
+        return 0;
+    }
 }
 
 void Main::OnResize()

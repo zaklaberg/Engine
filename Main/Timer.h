@@ -12,6 +12,7 @@ public:
 	void Start();
 	void Stop();
 	void Tick();
+	double Diff();
 
 private:
 	double mSecondsPerCount;

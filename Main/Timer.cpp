@@ -69,6 +69,15 @@ void Timer::Stop()
 	mIsStopped = true;
 }
 
+double Timer::Diff()
+{
+	__int64 currTime;
+	QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
+
+	// Time difference between the start of this frame and now
+	double delta = (currTime - mPreviousTime) * mSecondsPerCount;
+}
+
 void Timer::Tick()
 {
 	if (mIsStopped)
