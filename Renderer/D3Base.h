@@ -21,6 +21,9 @@ protected:
 	void CreateCommandObjects();
 	void CreateSwapChain();
 	void FlushCommandQueue();
+	void CreateRtvAndDsvDescriptorHeaps();
+
+	void OnResize();
 
 	void LogAdapters() const;
 	void LogAdapterOutputs(IDXGIAdapter* adapter) const;
