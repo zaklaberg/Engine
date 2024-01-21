@@ -5,12 +5,12 @@
 #include "Main.h"
 
 Main::Main(HINSTANCE hInstance, std::wstring appTitle, std::wstring wndClassName) :
-    appInstance(hInstance),
-    appTitle(appTitle),
-    wndClassName(wndClassName)
+    mAppInstance(hInstance),
+    mAppTitle(appTitle),
+    mWndClassName(wndClassName)
 {
     this->InitMainWindow();
-    this->renderer = std::make_unique<D3Base>(mainWnd, clientWidth, clientHeight);
+    this->mRenderer = std::make_unique<D3Base>(mMainWnd, mClientWidth, mClientHeight);
 }
 Main::~Main() {}
 bool Main::InitMainWindow() {
@@ -20,20 +20,20 @@ bool Main::InitMainWindow() {
 
 BOOL Main::InitWndInstance() {
     // Compute window rectangle dimensions based on requested client area dimensions.
-    RECT R = { 0L, 0L, (LONG)clientWidth, (LONG)clientHeight };
+    RECT R = { 0L, 0L, (LONG)mClientWidth, (LONG)mClientHeight };
 
     AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
     int width = R.right - R.left;
     int height = R.bottom - R.top;
 
-    HWND hWnd = CreateWindowW(wndClassName.c_str(), appTitle.c_str(), WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, width, height, nullptr, nullptr, appInstance, this);
+    HWND hWnd = CreateWindowW(mWndClassName.c_str(), mAppTitle.c_str(), WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, width, height, nullptr, nullptr, mAppInstance, this);
 
     if (!hWnd)
     {
         return FALSE;
     }
-    mainWnd = hWnd;
+    mMainWnd = hWnd;
     ShowWindow(hWnd, SW_SHOW);
     UpdateWindow(hWnd);
 
@@ -41,10 +41,10 @@ BOOL Main::InitWndInstance() {
 }
 
 int Main::Run() {
-    HACCEL hAccelTable = LoadAccelerators(appInstance, MAKEINTRESOURCE(IDC_MAIN));
+    HACCEL hAccelTable = LoadAccelerators(mAppInstance, MAKEINTRESOURCE(IDC_MAIN));
     MSG msg = { 0 };
 
-    timer.Reset();
+    mTimer.Reset();
 
     while (msg.message != WM_QUIT)
     {
@@ -59,7 +59,7 @@ int Main::Run() {
         {
             //mTimer.Tick();
 
-            if (!isAppPaused)
+            if (!mIsAppPaused)
             {
                 // CalculateFrameStats();
                 // Update(timer);
@@ -84,12 +84,12 @@ ATOM Main::RegisterWndClass() {
     wcex.lpfnWndProc = WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
-    wcex.hInstance = appInstance;
-    wcex.hIcon = LoadIcon(appInstance, MAKEINTRESOURCE(IDI_MAIN));
+    wcex.hInstance = mAppInstance;
+    wcex.hIcon = LoadIcon(mAppInstance, MAKEINTRESOURCE(IDI_MAIN));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = wndClassName.c_str();
+    wcex.lpszClassName = mWndClassName.c_str();
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);

@@ -15,7 +15,7 @@ D3Base::~D3Base()
 }
 
 D3Base::D3Base(HWND hWnd, int clientWidth, int clientHeight) : 
-	hWnd(hWnd), clientHeight(clientHeight), clientWidth(clientWidth)
+	mHwnd(hWnd), mClientHeight(clientHeight), mClientWidth(clientWidth)
 {
 #if defined(DEBUG) || defined(_DEBUG) 
 	// Enable the D3D12 debug layer.
@@ -111,8 +111,8 @@ void D3Base::CreateSwapChain()
 	mSwapChain.Reset();
 
 	DXGI_SWAP_CHAIN_DESC sd;
-	sd.BufferDesc.Width = clientWidth;
-	sd.BufferDesc.Height = clientHeight;
+	sd.BufferDesc.Width = mClientWidth;
+	sd.BufferDesc.Height = mClientHeight;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferDesc.Format = mBackBufferFormat;
@@ -122,7 +122,7 @@ void D3Base::CreateSwapChain()
 	sd.SampleDesc.Quality = m4xMsaaEnabled ? (m4xMsaaQuality - 1) : 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.BufferCount = SwapChainBufferCount;
-	sd.OutputWindow = hWnd;
+	sd.OutputWindow = mHwnd;
 	sd.Windowed = true;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;

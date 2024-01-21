@@ -23,20 +23,20 @@ protected:
 	BOOL InitWndInstance();
 
 protected:
-	HINSTANCE appInstance = nullptr;
-	HWND mainWnd = nullptr;
-	std::wstring wndClassName;
-	std::wstring appTitle;
+	HINSTANCE mAppInstance = nullptr;
+	HWND mMainWnd = nullptr;
+	std::wstring mWndClassName;
+	std::wstring mAppTitle;
 
-	bool isMaximized = false;
-	bool isMinimized = false;
-	bool isResizing = false;
-	bool isFullScreen = false;
-	bool isAppPaused = false;
+	bool mIsMaximized = false;
+	bool mIsMinimized = false;
+	bool mIsResizing = false;
+	bool mIsFullScreen = false;
+	bool mIsAppPaused = false;
 
-	int clientWidth = 800;
-	int clientHeight = 600;
+	int mClientWidth = 800;
+	int mClientHeight = 600;
 
-	Timer timer;
-	std::unique_ptr<D3Base> renderer;
+	Timer mTimer;
+	std::unique_ptr<D3Base> mRenderer;
 };

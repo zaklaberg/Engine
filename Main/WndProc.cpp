@@ -49,27 +49,27 @@ LRESULT CALLBACK Main::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
     case WM_ACTIVATE:
         if (LOWORD(wParam) == WA_INACTIVE)
         {
-            pThis->isAppPaused = true;
-            pThis->timer.Stop();
+            pThis->mIsAppPaused = true;
+            pThis->mTimer.Stop();
         }
         else
         {
-            pThis->isAppPaused = false;
-            pThis->timer.Start();
+            pThis->mIsAppPaused = false;
+            pThis->mTimer.Start();
         }
         return 0;
     case WM_ENTERSIZEMOVE:
-        pThis->isAppPaused = true;
-        pThis->isResizing = true;
-        pThis->timer.Stop();
+        pThis->mIsAppPaused = true;
+        pThis->mIsResizing = true;
+        pThis->mTimer.Stop();
         return 0;
 
         // WM_EXITSIZEMOVE is sent when the user releases the resize bars.
         // Here we reset everything based on the new window dimensions.
     case WM_EXITSIZEMOVE:
-        pThis->isAppPaused = false;
-        pThis->isResizing = false;
-        pThis->timer.Start();
+        pThis->mIsAppPaused = false;
+        pThis->mIsResizing = false;
+        pThis->mTimer.Start();
 
         pThis->OnResize();
         return 0;
@@ -79,41 +79,41 @@ LRESULT CALLBACK Main::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
         break;
 	case WM_SIZE:
 		// Save the new client area dimensions.
-		pThis->clientWidth = LOWORD(lParam);
-		pThis->clientHeight = HIWORD(lParam);
+		pThis->mClientWidth = LOWORD(lParam);
+		pThis->mClientHeight = HIWORD(lParam);
 
 		if (wParam == SIZE_MINIMIZED)
 		{
-			pThis->isAppPaused = true;
-			pThis->isMinimized = true;
-			pThis->isMaximized = false;
+			pThis->mIsAppPaused = true;
+			pThis->mIsMinimized = true;
+			pThis->mIsMaximized = false;
 		}
 		else if (wParam == SIZE_MAXIMIZED)
 		{
-			pThis->isAppPaused = false;
-			pThis->isMinimized = false;
-			pThis->isMaximized = true;
+			pThis->mIsAppPaused = false;
+			pThis->mIsMinimized = false;
+			pThis->mIsMaximized = true;
 			pThis->OnResize();
 		}
 		else if (wParam == SIZE_RESTORED)
 		{
 
 			// Restoring from minimized state?
-			if (pThis->isMinimized)
+			if (pThis->mIsMinimized)
 			{
-				pThis->isAppPaused = false;
-				pThis->isMinimized = false;
+				pThis->mIsAppPaused = false;
+				pThis->mIsMinimized = false;
 				pThis->OnResize();
 			}
 
 			// Restoring from maximized state?
-			else if (pThis->isMaximized)
+			else if (pThis->mIsMaximized)
 			{
-				pThis->isAppPaused = false;
-				pThis->isMaximized = false;
+				pThis->mIsAppPaused = false;
+				pThis->mIsMaximized = false;
 				pThis->OnResize();
 			}
-			else if (pThis->isResizing)
+			else if (pThis->mIsResizing)
 			{
 				// If user is dragging the resize bars, we do not resize 
 				// the buffers here because as the user continuously 

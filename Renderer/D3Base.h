@@ -27,9 +27,9 @@ protected:
 	void LogOutputDisplayModes(IDXGIOutput* output, DXGI_FORMAT format) const;
 
 protected:
-	HWND hWnd;
-	int clientWidth;
-	int clientHeight;
+	HWND mHwnd;
+	int mClientWidth;
+	int mClientHeight;
 
 	// Multisampling support
 	bool m4xMsaaEnabled = false;
