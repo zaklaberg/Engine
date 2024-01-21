@@ -17,13 +17,13 @@ public:
 	D3Base(HWND hWnd, int clientWidth, int clientHeight);
 	virtual ~D3Base();
 
+	void OnResize();
+
 protected:
 	void CreateCommandObjects();
 	void CreateSwapChain();
 	void FlushCommandQueue();
 	void CreateRtvAndDsvDescriptorHeaps();
-
-	void OnResize();
 
 	void LogAdapters() const;
 	void LogAdapterOutputs(IDXGIAdapter* adapter) const;

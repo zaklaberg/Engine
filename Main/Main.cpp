@@ -111,7 +111,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 void Main::OnResize()
 {
-    
+    this->mRenderer->OnResize();
 }
 
 
